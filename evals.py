@@ -12,12 +12,12 @@ from utils import *
 # all 9 texture-architecture configs
 
 TEXTURES = {
-    # "gradient": "textures/gradient.png",
-    # "bricks": "textures/bricks.png",
-    # "clouds": "textures/clouds.png",
-    "water": "textures/water.png",
-    "dirt": "textures/dirt.png",
-    "ships": "textures/ships.png"
+    "gradient": "textures/gradient.png",
+    "bricks": "textures/bricks.png",
+    "clouds": "textures/clouds.png",
+    # "water": "textures/water.png",
+    # "dirt": "textures/dirt.png",
+    # "ships": "textures/ships.png"
 }
 
 ARCHITECTURES = {
@@ -168,6 +168,52 @@ def save_results_csv(results):
         writer.writeheader()
         writer.writerows(results)
 
+# plotting quantized results on top of p6
+def plot_size_quality(results, quantization_results):
+    plt.figure(figsize=(8, 6))
+
+    # P6 float32 models
+    for r in results:
+        plt.scatter(
+            r["neural_kb"],
+            r["psnr"],
+            marker="o",
+            s=70
+        )
+
+        plt.annotate(
+            f"{r['texture']} {r['architecture']}",
+            (r["neural_kb"], r["psnr"]),
+            fontsize=7
+        )
+
+    # P7 quantized models
+    for r in quantization_results:
+        plt.scatter(
+            r["size_kb"],
+            r["psnr_after"],
+            marker="x",
+            s=70
+        )
+
+        plt.annotate(
+            f"{r['texture']} {r['architecture']} Q",
+            (r["size_kb"], r["psnr_after"]),
+            fontsize=7
+        )
+
+    plt.xlabel("Model Size (KB)")
+    plt.ylabel("PSNR (dB)")
+    plt.title("Size vs. Reconstruction Quality")
+    plt.grid(True)
+    plt.tight_layout()
+
+    plt.savefig(
+        os.path.join(OUTPUT_DIR, "size_vs_quality_quantized.png"),
+        dpi=200
+    )
+
+    plt.close()
 
 # ===========================================================================
 
@@ -369,6 +415,7 @@ def main():
             f"{r['size_kb']:>12.2f}"
             f"{r['compression_ratio']:>10.4f}"
         )
+    plot_size_quality(results, quantization_results)
 
 if __name__ == "__main__":
     main()
