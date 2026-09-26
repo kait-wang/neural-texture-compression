@@ -1,0 +1,24 @@
+S3TC RESULTS
+======================================================================
+
+Texture: gradient
+Resolution: 512 x 512
+PSNR: 42.88 dB
+Original size: 768.00 KB
+S3TC size: 128.00 KB
+Compressed/original ratio: 0.1667
+
+Texture: bricks
+Resolution: 512 x 512
+PSNR: 41.39 dB
+Original size: 768.00 KB
+S3TC size: 128.00 KB
+Compressed/original ratio: 0.1667
+
+Texture: clouds
+Resolution: 512 x 512
+PSNR: 42.27 dB
+Original size: 768.00 KB
+S3TC size: 128.00 KB
+Compressed/original ratio: 0.1667
+
