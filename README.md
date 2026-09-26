@@ -42,7 +42,7 @@ TEXTURES = {
 Then run:
 
 ```bash
-python eval.py
+python evals.py
 ```
 
 Each uncommented texture is independently trained using all three architectures:
